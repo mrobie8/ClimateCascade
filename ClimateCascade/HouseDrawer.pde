@@ -7,7 +7,6 @@ class HouseDrawer {
   
   public HouseDrawer(AECPlugin aec_) {
     aec = aec_;
-    font = loadFont("LucidaConsole-8.vlw"); 
   }
   
   public void toggleIds() {
