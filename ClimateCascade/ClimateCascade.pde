@@ -1,6 +1,6 @@
 AEC aec;
 float timer;
-int glacierCount = 0;
+int glacierCount = -4;
 
 void setup() {
   frameRate(25);
@@ -18,11 +18,13 @@ void draw() {
   
   //glaciers
   if (timer % 75 == 0) {
-    glacierCount ++;
+    glacierCount += 2;
   }
-  if (timer < 1400) {
-    glaciers(glacierCount);
-  }
+  fill(188, 230, 242);
+  triangle(30, glacierCount + 26, 40, glacierCount +26, 34, glacierCount +10);
+  //if (timer < 1400) {
+  //  glaciers(glacierCount);
+  //}
   
   //glaciers(glacierCount);
   
@@ -50,7 +52,7 @@ void draw() {
 
 void glaciers(int y) {
   randomSeed(1);
-  fill(255);
+  fill(188, 230, 242);
   //first section
   rect(0, y + 13, 10, 20);
   rect(2, y + 11, 7, 2);
@@ -83,15 +85,18 @@ void glaciers(int y) {
   triangle(6,  y + 25, 8,  y + 15, 9,  y + 25);
   triangle(7,  y + 25, 11,  y + 16, 12,  y + 25);
   triangle(12,  y + 25, 11,  y + 16, 18,  y + 25);
-  triangle(30,  y + 26, 33,  y + 26, 32,  y + 18);
-  triangle(32,  y + 26, 37,  y + 26, 34,  y + 12);
-  triangle(36,  y + 26, 40,  y + 26, 38,  y + 20);
-  rect(36, y + 12,1,1);
-  rect(27, y + 17,1,1);
-  rect(31, y + 16,1,1);
-  rect(38, y + 20,1,1);
   
-  fill(83, 189, 239);
+  
+  
+  triangle(30,  y + 26, 37,  y + 26, 34,  y + 12);
+  triangle(36,  y + 26, 40,  y + 26, 38,  y + 20);
+  //rect(36, y + 12,1,1);
+  //rect(27, y + 17,1,1);
+  //rect(31, y + 16,1,1);
+  //rect(38, y + 20,1,1);
+  
+  //fill(44, 136, 2018);
+  fill(220, 123, 30);
   triangle(0,  y + 20, 0,  y + 25, 2,  y + 25);
   triangle(3,  y + 25, 3,  y + 23, 6,  y + 25);
   triangle(7,  y + 25, 8,  y + 17, 8,  y + 25);
@@ -99,9 +104,11 @@ void glaciers(int y) {
   triangle(30,  y + 26, 33,  y + 26, 32,  y + 22);
   triangle(32,  y + 26, 37,  y + 26, 34,  y + 17);
   triangle(36,  y + 26, 39,  y + 26, 38,  y + 24);
-  rect(13,y+22,1,2);
-  rect(28,y+18,1,2);
-  rect(37,y+13,1,1);
+  
+  triangle(20,  y + 26, 28,  y + 26, 23,  y + 18);
+  //rect(13,y+22,1,2);
+  //rect(28,y+18,1,2);
+  //rect(37,y+13,1,1);
 }
 
 
