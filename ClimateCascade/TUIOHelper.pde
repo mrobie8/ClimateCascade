@@ -8,7 +8,7 @@ import java.util.Vector;
 // for enhanced usage: http://www.tuio.org/?java 
 
 TuioProcessing tuioClient;
-boolean _DoDebug = true;
+boolean _DoDebug = false;
 int _wallHeight = 0;
 final int INVALID = -1;
 

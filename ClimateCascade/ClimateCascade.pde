@@ -2,6 +2,10 @@ AEC aec;
 float timer;
 ArrayList<Ripple> pond;
 color RippleColor;
+int interval = 3000;
+ArrayList<Integer> people;
+HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //trackID and seconds
+int frequency = 75;
 
 void setup() {
   frameRate(25);
@@ -23,9 +27,14 @@ void draw() {
   
   drawPharus();
   
+  
   for (int i = 0; i < pond.size(); i++) {
     pond.get(i).draw();
     pond.get(i).grow();
+  }
+  
+  for (Integer key : lengthInSpace.keySet()) {
+    lengthInSpace.put(key, lengthInSpace.get(key) + 1);
   }
   
   //grid lines
@@ -60,11 +69,11 @@ void mouseClicked() {
   version 3: 3 rings
   version 4: realistic pixels
   **/
-  //pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
   
   //bug with the edges
   //version 4
-  pond.add(new Ripple4(mouseX/aec.getScaleX(), mouseY/aec.getScaleY(), 75, 29, 1));
+  //pond.add(new Ripple4(mouseX/aec.getScaleX(), mouseY/aec.getScaleY(), 75, 29, 1));
   
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
 }

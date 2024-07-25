@@ -33,6 +33,7 @@ void setupPharus()
   windowHeight = height /2 / aec.getScaleY();
   wallHeight = 0; //(height / 2) / aec.getScaleY();
   initTracking(false, wallHeight); //wallHeight);
+  people = new ArrayList<>();
 }
 
 void drawPharus()
@@ -49,7 +50,7 @@ void drawPharus()
   text((int)frameRate + " FPS", width / 2, 10);
   */
   
-  
+  /*
   if (ShowPath)
   {
     // show the motion path of each track on the floor    
@@ -73,18 +74,43 @@ void drawPharus()
       }
     }
   }
-  
+  */
 
-  if (ShowTrack)
-  {
+  if (ShowTrack) {
     // show each track with the corresponding  id number
-    for (int trackID=0; trackID<GetNumTracks (); trackID++) 
-    {
-      //noStroke();
+    
+    // a person enters
+      if (GetNumTracks() > people.size()) {
+        for (int p = 0; p < GetNumTracks() - people.size(); p++) {
+          for (int trackID=0; trackID<GetNumTracks (); trackID++) {
+            int cursor = GetCursorID(trackID);
+            if (!people.contains(cursor)) {
+              people.add(cursor);
+              lengthInSpace.put(cursor, 0);
+            }
+          }
+        }
+      }
+      // a person leaves
+      else if (GetNumTracks() < people.size()) {
+        for (int p = 0; p < people.size() - GetNumTracks(); p++) {
+          for (int w = 0; w < people.size(); w++) { 
+             int cursor = people.get(w); 
+             if (cursorIdNotInScreen(cursor)) {
+               people.remove(Integer.valueOf(cursor));
+               lengthInSpace.remove(cursor);
+             }
+           }
+         }
+       }
+    
+    for (int trackID=0; trackID<GetNumTracks (); trackID++) {
+      if (timeToStart(trackID)) {
+        pond.add(new Ripple2(GetX(trackID)/aec.getScaleX(), GetY(trackID)/aec.getScaleY()));  
+      }
+      
       fill(255);
-      ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 3 , 4);
-     // fill(255);
-     // text(GetCursorID(trackID), GetX(trackID), GetY(trackID));
+      ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
     }
   }
 
@@ -109,6 +135,25 @@ void drawPharus()
     }
   }
   */
+}
+
+//true if cursor doesn't exist in the screen
+boolean cursorIdNotInScreen(int cursor) {
+  for (int trackID=0; trackID<GetNumTracks (); trackID++) {
+    if (GetCursorID(trackID) == cursor) {
+      return false;
+    }
+  }
+  return true;
+}
+
+boolean timeToStart(int trackID) {
+  if (lengthInSpace.get(GetCursorID(trackID)) %  frequency == 0) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 void keyPressedPharus()
