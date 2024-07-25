@@ -16,7 +16,7 @@ float crestticks;
 
 void water1() {
   // Draw the wave crests
-  fill(184,214,241);          // Set the fill color to blue
+  fill(crestColor);          // Set the fill color to blue
   noStroke();               // No border for the water rectangle
 
   crestticks++;
@@ -51,7 +51,7 @@ void water1() {
   
  
   // WATER
-  fill(15,57,89);          // Set the fill color to blue
+  fill(water2Color);          // Set the fill color to blue
   noStroke();               // No border for the water rectangle
 
   ticks++;
