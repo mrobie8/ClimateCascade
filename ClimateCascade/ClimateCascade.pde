@@ -1,6 +1,6 @@
 AEC aec;
 float timer;
-int glacierCount = -4;
+float R=2;
 
 void setup() {
   frameRate(25);
@@ -16,31 +16,18 @@ void draw() {
   background(0,0,0);
   noStroke();
   
-  //glaciers
-  if (timer % 75 == 0) {
-    glacierCount += 2;
-  }
-  fill(188, 230, 242);
-  triangle(30, glacierCount + 26, 40, glacierCount +26, 34, glacierCount +10);
-  //if (timer < 1400) {
-  //  glaciers(glacierCount);
-  //}
-  
-  //glaciers(glacierCount);
-  
-  
   
  
 
   //grid lines
-  //stroke(0, 255, 0);
-  //strokeWeight(0.15);
-  //line(10, 0, 10, 30);
-  //line(20, 0, 20, 30);
-  //line(30, 0, 30, 30);
-  //line(55, 0, 55, 30);
-  //line(60, 0, 60, 30);
-  //strokeWeight(1);
+  stroke(0, 255, 0);
+  strokeWeight(0.15);
+  line(10, 0, 10, 30);
+  line(20, 0, 20, 30);
+  line(30, 0, 30, 30);
+  line(55, 0, 55, 30);
+  line(60, 0, 60, 30);
+  strokeWeight(1);
 
   fill(255,0,100);
   rect(mouseX/aec.getScaleX(),mouseY/aec.getScaleY(),1,1);
@@ -49,6 +36,44 @@ void draw() {
   aec.drawSides();
   timer ++;
 }
+
+
+class Particle{
+  PVector pos;
+  float veloZ;
+  Particle(float x, float y){
+    pos=new PVector(x, y, 0);
+    veloZ=0;
+  }
+  void tick(Grid grid, int x,int y){
+    PVector a=new PVector();
+    if(x>0){  
+a.add(PVector.sub(grid.p[x-1][y].pos, pos));
+    }
+    if(x<grid.p.length-1){  
+a.add(PVector.sub(grid.p[x+1][y].pos, pos));
+    }
+    if(y>0){  
+a.add(PVector.sub(grid.p[x][y-1].pos, pos));
+    }
+    if(y<grid.p[0].length-1){  
+a.add(PVector.sub(grid.p[x][y+1].pos, pos));
+    }
+    veloZ+=a.z*0.01;
+    veloZ-=pos.z*0.005;
+    veloZ-=veloZ*0.01;
+    pos.z+=veloZ;
+  }
+  void draw(){
+    float r=lerp(1,R*2,pos.z+1);
+    fill(100,200,255);
+    ellipse(pos.x, pos.y, r, r);
+  }
+}
+
+
+
+
 
 void glaciers(int y) {
   randomSeed(1);
