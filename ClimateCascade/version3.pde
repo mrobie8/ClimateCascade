@@ -16,7 +16,7 @@ class Ripple3 implements Ripple {
   void draw() {
     noFill();
     stroke(RippleColor, alpha);
-    strokeWeight(0.8);
+    strokeWeight(rippleWeight);
     ellipse(x, y, cSize1/2, cSize1);
     ellipse(x, y, cSize2/2, cSize2);
     ellipse(x, y, cSize3/2, cSize3);

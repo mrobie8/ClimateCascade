@@ -15,13 +15,13 @@ class Ripple1 implements Ripple {
   void draw() {
     noFill();
     stroke(RippleColor, alpha);
-    strokeWeight(1);
+    strokeWeight(rippleWeight);
     ellipse(x, y, size/2, size);
   }
   
   void grow() {
-    size += 1;
-    alpha -= 20;
+    size += 0.7;
+    alpha -= 15;
     if (alpha < 0) pond.remove(this);
   }
 }
