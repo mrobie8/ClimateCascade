@@ -21,8 +21,8 @@ class Ripple2 implements Ripple {
   }
   
   void grow() {
-    cSize1 += 1;
-    cSize2 += 0.5;
+    cSize1 += 0.75;
+    cSize2 += 0.3;
     alpha -= 10;
     if (alpha < 0) pond.remove(this);
   }

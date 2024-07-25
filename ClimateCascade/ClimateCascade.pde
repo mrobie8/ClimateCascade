@@ -9,6 +9,8 @@ void setup() {
   
   aec = new AEC();
   aec.init();
+  setupPharus();
+  
   timer = 0;
   pond = new ArrayList();
   RippleColor = color(130, 220, 245);
@@ -18,6 +20,8 @@ void draw() {
   aec.beginDraw();
   background(0,0,0);
   noStroke();
+  
+  drawPharus();
   
   for (int i = 0; i < pond.size(); i++) {
     pond.get(i).draw();
@@ -54,8 +58,14 @@ void mouseClicked() {
   version 1: 1 ring
   version 2: 2 rings
   version 3: 3 rings
+  version 4: realistic pixels
   **/
-  pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  //pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  
+  //bug with the edges
+  //version 4
+  pond.add(new Ripple4(mouseX/aec.getScaleX(), mouseY/aec.getScaleY(), 75, 29, 1));
+  
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
 }
 
