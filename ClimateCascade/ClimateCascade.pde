@@ -1,11 +1,11 @@
 AEC aec;
 float timer;
 ArrayList<Ripple> pond;
-color RippleColor;
-int interval = 3000;
-ArrayList<Integer> people;
 HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //trackID and seconds
-int frequency = 75;
+ArrayList<Integer> people;
+
+color RippleColor = color(130, 220, 245);
+int frequency = 50;
 
 void setup() {
   frameRate(25);
@@ -17,7 +17,6 @@ void setup() {
   
   timer = 0;
   pond = new ArrayList();
-  RippleColor = color(130, 220, 245);
 }
 
 void draw() {
@@ -27,14 +26,19 @@ void draw() {
   
   drawPharus();
   
-  
-  for (int i = 0; i < pond.size(); i++) {
-    pond.get(i).draw();
-    pond.get(i).grow();
-  }
-  
-  for (Integer key : lengthInSpace.keySet()) {
-    lengthInSpace.put(key, lengthInSpace.get(key) + 1);
+  if (clusterFormed()) {
+    //giant spiral
+    
+    
+  } else {
+    for (int i = 0; i < pond.size(); i++) {
+      pond.get(i).draw();
+      pond.get(i).grow();
+    }
+    
+    for (Integer key : lengthInSpace.keySet()) {
+      lengthInSpace.put(key, lengthInSpace.get(key) + 1);
+    }
   }
   
   //grid lines
@@ -55,6 +59,7 @@ void draw() {
   timer ++;
 }
 
+//different ripple objects
 interface Ripple {
   void draw();
   void grow();
@@ -64,15 +69,14 @@ interface Ripple {
 void mouseClicked() {
   //version control
   /** 
-  version 1: 1 ring
-  version 2: 2 rings
-  version 3: 3 rings
-  version 4: realistic pixels
+  version 1 (Rippe1): 1 ring
+  version 2 (Rippe2): 2 rings
+  version 3 (Rippe3): 3 rings
   **/
-  pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  pond.add(new Ripple1(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
   
   //bug with the edges
-  //version 4
+  //version 4: realistic pixels
   //pond.add(new Ripple4(mouseX/aec.getScaleX(), mouseY/aec.getScaleY(), 75, 29, 1));
   
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
@@ -80,4 +84,20 @@ void mouseClicked() {
 
 void keyPressed() {
   aec.keyPressed(key);
+}
+
+//return true if 4 or more people are within 100 px to each other
+boolean clusterFormed() {
+  int count = 1;
+  for (int trackID=0; trackID<GetNumTracks(); trackID++) {
+    for (int others=0; trackID<GetNumTracks(); trackID++) {
+      if (trackID != others) {
+        if (dist(GetX(trackID), GetY(trackID), GetX(others), GetY(others)) <= 100) {
+          count ++;
+        }
+      }
+    }
+    if (count >= 4) return true;
+  }
+  return false;
 }

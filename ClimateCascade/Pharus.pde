@@ -36,105 +36,46 @@ void setupPharus()
   people = new ArrayList<>();
 }
 
-void drawPharus()
-{
-  /*
-  // clear background with white
-  background(255);
-
-  // set upper half of window (=wall projection) bluish
-  noStroke();
-  fill(70, 100, 150);
-  rect(0, 0, windowWidth, wallHeight);
-  fill(150);
-  text((int)frameRate + " FPS", width / 2, 10);
-  */
+void drawPharus() {
   
-  /*
-  if (ShowPath)
-  {
-    // show the motion path of each track on the floor    
-    for (int trackID=0; trackID<GetNumTracks (); trackID++) 
-    {      
-      stroke(70, 100, 150, 25);
-      int numPoints = GetNumPathPoints (trackID);
-      if (numPoints > 1)
-      {      
-        int maxDrawnPoints = 300;      
-        int startX = GetPathPointX(trackID, numPoints - 1);
-        int startY = GetPathPointY(trackID, numPoints - 1);
-        for (int pointID = numPoints - 2; pointID > max(0, numPoints - maxDrawnPoints); pointID--) 
-        {  
-          int endX = GetPathPointX(trackID, pointID);
-          int endY = GetPathPointY(trackID, pointID);
-          line(startX, startY, endX, endY);
-          startX = endX;
-          startY = endY;
-        }
-      }
-    }
-  }
-  */
-
-  if (ShowTrack) {
-    // show each track with the corresponding  id number
-    
-    // a person enters
-      if (GetNumTracks() > people.size()) {
-        for (int p = 0; p < GetNumTracks() - people.size(); p++) {
-          for (int trackID=0; trackID<GetNumTracks (); trackID++) {
-            int cursor = GetCursorID(trackID);
-            if (!people.contains(cursor)) {
-              people.add(cursor);
-              lengthInSpace.put(cursor, 0);
-            }
+  // a person enters
+  if (GetNumTracks() > people.size()) {
+      for (int p = 0; p < GetNumTracks() - people.size(); p++) {
+        for (int trackID=0; trackID<GetNumTracks (); trackID++) {
+          int cursor = GetCursorID(trackID);
+          if (!people.contains(cursor)) {
+            people.add(cursor);
+            lengthInSpace.put(cursor, 0);
           }
         }
       }
-      // a person leaves
-      else if (GetNumTracks() < people.size()) {
-        for (int p = 0; p < people.size() - GetNumTracks(); p++) {
-          for (int w = 0; w < people.size(); w++) { 
-             int cursor = people.get(w); 
-             if (cursorIdNotInScreen(cursor)) {
-               people.remove(Integer.valueOf(cursor));
-               lengthInSpace.remove(cursor);
-             }
-           }
-         }
-       }
+    }
+    // a person leaves
+    else if (GetNumTracks() < people.size()) {
+      for (int p = 0; p < people.size() - GetNumTracks(); p++) {
+        for (int w = 0; w < people.size(); w++) { 
+          int cursor = people.get(w); 
+          if (cursorIdNotInScreen(cursor)) {
+            people.remove(Integer.valueOf(cursor));
+            lengthInSpace.remove(cursor);
+          }
+        }
+      }
+    }
     
     for (int trackID=0; trackID<GetNumTracks (); trackID++) {
       if (timeToStart(trackID)) {
-        pond.add(new Ripple2(GetX(trackID)/aec.getScaleX(), GetY(trackID)/aec.getScaleY()));  
+        
+ // ------------------------------------------------------------------------------------------
+ // ------------------------------------------------------------------------------------------
+        pond.add(new Ripple1(GetX(trackID)/aec.getScaleX(), GetY(trackID)/aec.getScaleY())); 
+ // ------------------------------------------------------------------------------------------
+ // ------------------------------------------------------------------------------------------
+        
       }
-      
       fill(255);
       ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
     }
-  }
-
-/*
-  if (ShowFeet)
-  {
-    // show the feet of each track
-    for (int trackID=0; trackID<GetNumTracks (); trackID++) 
-    { 
-      // if we had used keys <0> .. <9> to deactivate the feet for this track, then we skip it here
-      if (((int)pow(2, trackID) & show) != (int)pow(2, trackID))
-      {
-        continue;
-      }
-      stroke(70, 100, 150, 200);
-      noFill();
-      // paint all the feet that we can find for one character
-      for (int footID=0; footID<GetNumFeet (trackID); footID++)
-      {
-        ellipse(GetFootX(trackID, footID), GetFootY(trackID, footID), cursor_size / 3, cursor_size / 3); //<>//
-      }
-    }
-  }
-  */
 }
 
 //true if cursor doesn't exist in the screen
@@ -155,6 +96,24 @@ boolean timeToStart(int trackID) {
     return false;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void keyPressedPharus()
 {
