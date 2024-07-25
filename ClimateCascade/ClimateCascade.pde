@@ -1,7 +1,7 @@
 AEC aec;
 float timer;
-ArrayList<Ripple1> pond;
-
+ArrayList<Ripple> pond;
+color RippleColor;
 
 void setup() {
   frameRate(25);
@@ -10,8 +10,8 @@ void setup() {
   aec = new AEC();
   aec.init();
   timer = 0;
-  
   pond = new ArrayList();
+  RippleColor = color(130, 220, 245);
 }
 
 void draw() {
@@ -19,14 +19,10 @@ void draw() {
   background(0,0,0);
   noStroke();
   
-  //version #1
-  drawVersion1();
-  if (mousePressed) {
-    pond.add(new Ripple1(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  for (int i = 0; i < pond.size(); i++) {
+    pond.get(i).draw();
+    pond.get(i).grow();
   }
-  
-  //version #2
-  
   
   //grid lines
   stroke(0, 255, 0);
@@ -46,7 +42,20 @@ void draw() {
   timer ++;
 }
 
+interface Ripple {
+  void draw();
+  void grow();
+}
+
+
 void mouseClicked() {
+  //version control
+  /** 
+  version 1: 1 ring
+  version 2: 2 rings
+  version 3: 3 rings
+  **/
+  pond.add(new Ripple2(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
 }
 
