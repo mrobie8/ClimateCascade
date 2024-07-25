@@ -1,13 +1,13 @@
 
 //water variables
-int waterHeight = 120;        // Initial height of the water
+int waterHeight = 350;        // Initial height of the water 120
 float fillSpeed =1.5;          // Speed at which water fills up
 float waveFrequency = 0.05; // Frequency of the waves
 float waveAmplitude = 18;  // Amplitude of the waves
 float waveOffset = 0;      // Offset for animating waves
 float ticks;
 
-int crestHeight = 120;        // Initial height of the water
+int crestHeight = 350;        // Initial height of the water 120
 float crestfillSpeed =5;          // Speed at which water fills up
 float crestFrequency = 0.05; // Frequency of the waves
 float crestAmplitude = 18;  // Amplitude of the waves
@@ -42,8 +42,8 @@ void water1() {
   crestHeight += crestfillSpeed;
 
   // Stop the crest from overflowing
-  if (crestHeight > height+20) {
-    crestHeight = (height+20);
+  if (crestHeight > height+-22) {
+    crestHeight = (height+-21);
   }
 
   // Animate the wave
@@ -77,8 +77,8 @@ void water1() {
   waterHeight += fillSpeed;
 
   // Stop the water from overflowing
-  if (waterHeight > height+25) {
-    waterHeight = height+25;
+  if (waterHeight > height+-25) {
+    waterHeight = height+-34;
   }
 
   // Animate the wave

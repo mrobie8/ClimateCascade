@@ -39,8 +39,6 @@ boolean clusterFormed() {
   return foundCluster;
 }
 
-
-
 void createGiantRipple() {
   if (timer % 10 == 0) {
     giantRipple.add(new Circle(giantRippleX/aec.getScaleX(), giantRippleY/aec.getScaleY()));
@@ -65,14 +63,14 @@ class Circle {
   
   void draw() {
     noFill();
-    stroke(RippleColor, alpha);
-    strokeWeight(1);
+    stroke(giantRippleColor, alpha);
+    strokeWeight(0.8);
     ellipse(x, y, size/2, size);
   }
   
   void grow() {
-    size += 2;
-    alpha -= 5;
+    size += 0.6;
+    alpha -= 1;
     if (alpha < 0) giantRipple.remove(this);
   }
 }

@@ -4,18 +4,21 @@ ArrayList<Ripple> pond;
 HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //trackID and seconds
 ArrayList<Integer> people;
 ArrayList<Circle> giantRipple;
-int giantRippleX = 35;
-int giantRippleY = 13;
+int giantRippleX = 600;
+int giantRippleY = 130;
+color giantRippleColor = color(255);
+float ripHue = 0;
 
 //VARIABLES
-color RippleColor = color(130, 220, 245); //color of rippes
+color RippleColor = color(255); //color of rippes
 int frequency = 40; //frequency of ripples normally my frames
 int distCluster = 100; //distance required to form a cluster
 float rippleWeight = 0.7; //strokeWeight of the ripples
 
 int waterFinalHeight = 1; // default is 1, make greater if want water to go to top for fish bowl
 
-color water2Color = color(15,57,89);
+//wave1 colors
+color water2Color = color(65, 89, 150);
 color crestColor = color(184,214,241);
 
 void setup() {
@@ -29,6 +32,7 @@ void setup() {
   timer = 0;
   pond = new ArrayList();
   giantRipple = new ArrayList();
+  colorMode(RGB, 255);
 }
 
 void draw() {
@@ -39,26 +43,37 @@ void draw() {
   drawPharus();
   
   //WATER-------------------------------
-  water2();
-  //water1();
+  //water2();
+  water1();
+  
+  colorMode(HSB, 360, 100, 100);
+      createGiantRipple();
+      giantRippleColor = color(327, ripHue, 100);
+      ripHue = constrain(ripHue + 0.5, 0, 80);
+      colorMode(RGB, 255);
   
   
   //RIPPLES-----------------------------------
   
-  if (timer >= 275) {
-    if (clusterFormed()) {
-      createGiantRipple();
-    } else {
-      giantRipple = new ArrayList();
-      for (int i = 0; i < pond.size(); i++) {
-        pond.get(i).draw();
-        pond.get(i).grow();
-      }
-      for (Integer key : lengthInSpace.keySet()) {
-        lengthInSpace.put(key, lengthInSpace.get(key) + 1);
-      }
-    }
-  }
+  //if (timer >= 0) {
+  //  if (clusterFormed()) {
+  //    colorMode(HSB, 360, 100, 100);
+  //    createGiantRipple();
+  //    giantRippleColor = color(327, ripHue, 100);
+  //    ripHue += 1;
+  //    colorMode(RGB, 255);
+  //  } else {
+  //    giantRipple = new ArrayList();
+  //    giantRippleColor = color(255);
+  //    for (int i = 0; i < pond.size(); i++) {
+  //      pond.get(i).draw();
+  //      pond.get(i).grow();
+  //    }
+  //    for (Integer key : lengthInSpace.keySet()) {
+  //      lengthInSpace.put(key, lengthInSpace.get(key) + 1);
+  //    }
+  //  }
+  //}
   
   
   

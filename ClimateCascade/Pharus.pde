@@ -73,8 +73,10 @@ void drawPharus() {
  // ------------------------------------------------------------------------------------------
         
       }
-      fill(255);
-      ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
+      
+      
+      //fill(255);
+      //ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
     }
 }
 
