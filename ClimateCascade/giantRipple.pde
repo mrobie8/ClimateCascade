@@ -31,7 +31,7 @@ boolean clusterFormed() {
     localAvX += personX;
     localAvY += personY;
     localCount++;
-    if (localCount >= 4 && localCount > maxClusterSize) {
+    if (localCount >= 5 && localCount > maxClusterSize) {
       maxClusterSize = localCount;
       bestAvX = localAvX / localCount;
       bestAvY = localAvY / localCount;

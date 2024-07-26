@@ -7,20 +7,18 @@ color RippleColor = color(255); //color of rippes
 int frequency = 40; //frequency of ripples normally my frames
 int distCluster = 100; //distance required to form a cluster
 float rippleWeight = 0.7; //strokeWeight of the ripples
-int waterFinalHeight = 3; // default is 1, make greater if want water to go to top for fish bowl
 
 void setup() {
   frameRate(25);
   size(1200, 400);
-  
   aec = new AEC();
   aec.init();
   setupPharus();
-  
+  colorMode(RGB, 255);
   timer = 0;
   pond = new ArrayList();
   giantRipple = new ArrayList();
-  colorMode(RGB, 255);
+  waterLevel = -22;
 }
 
 void draw() {
@@ -32,12 +30,11 @@ void draw() {
   
   water();
   
-  if (timer >= 280) {
+  if (GetNumTracks() >= 4 && !beingFilled) {
     if (clusterFormed()) {
       createGiantRipple();
     } else {
       giantRipple = new ArrayList();
-      giantRippleColor = color(255);
       for (int i = 0; i < pond.size(); i++) {
         pond.get(i).draw();
         pond.get(i).grow();
@@ -47,6 +44,7 @@ void draw() {
       }
     }
   }
+  
   
   //grid lines
   stroke(0, 255, 0);
@@ -68,7 +66,6 @@ void draw() {
 
 void mouseClicked() {
   pond.add(new Ripple(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
-  
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
 }
 

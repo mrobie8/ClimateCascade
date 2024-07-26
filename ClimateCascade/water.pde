@@ -1,17 +1,26 @@
 
 boolean beingFilled = true;
-float waterLevel = -22;
+float waterLevel;
 float noiseCounter = 0;
 float yoff = 0.0;
 final int Y_AXIS = 1;
 final int X_AXIS = 2;
+int waterFinalHeight = 3; // default is 1, make greater if want water to go to top for fish bowl
 
 void water() {
+  float targetWaterLevel = -22 + (25 / 3 * GetNumTracks());
   drawWater();
+  if (GetNumTracks() < 3) {
+    beingFilled = true;
+  }
   if (beingFilled) {
     drawSinWave(waterLevel);
-    waterLevel += 0.1;
-    if (waterLevel >= waterFinalHeight) {
+    if (waterLevel < targetWaterLevel) {
+      waterLevel += 0.1;
+    } else if (waterLevel > targetWaterLevel) {
+      waterLevel -= 0.1;
+    }
+    if (waterLevel >= waterFinalHeight && GetNumTracks() >= 3) {
       beingFilled = false;
     }
   } else {

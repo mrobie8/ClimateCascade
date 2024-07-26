@@ -19,30 +19,31 @@ void setupPharus(){
 void drawPharus() {
   // a person enters
   if (GetNumTracks() > people.size()) {
-      for (int p = 0; p < GetNumTracks() - people.size(); p++) {
-        for (int trackID=0; trackID<GetNumTracks (); trackID++) {
-          int cursor = GetCursorID(trackID);
-          if (!people.contains(cursor)) {
-            people.add(cursor);
-            lengthInSpace.put(cursor, 0);
-          }
+    for (int p = 0; p < GetNumTracks() - people.size(); p++) {
+      for (int trackID=0; trackID<GetNumTracks (); trackID++) {
+        int cursor = GetCursorID(trackID);
+        if (!people.contains(cursor)) {
+          people.add(cursor);
+          lengthInSpace.put(cursor, 0);
         }
       }
     }
+  }
     
-    // a person leaves
-    else if (GetNumTracks() < people.size()) {
-      for (int p = 0; p < people.size() - GetNumTracks(); p++) {
-        for (int w = 0; w < people.size(); w++) { 
-          int cursor = people.get(w); 
-          if (cursorIdNotInScreen(cursor)) {
-            people.remove(Integer.valueOf(cursor));
-            lengthInSpace.remove(cursor);
-          }
+  // a person leaves
+  else if (GetNumTracks() < people.size()) {
+    for (int p = 0; p < people.size() - GetNumTracks(); p++) {
+      for (int w = 0; w < people.size(); w++) { 
+        int cursor = people.get(w); 
+        if (cursorIdNotInScreen(cursor)) {
+          people.remove(Integer.valueOf(cursor));
+          lengthInSpace.remove(cursor);
         }
       }
     }
+  }
     
+  if (!beingFilled) {
     //add ripples at person's location
     for (int trackID=0; trackID<GetNumTracks (); trackID++) {
       if (timeToStart(trackID)) {
@@ -51,6 +52,7 @@ void drawPharus() {
       fill(255);
       ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
     }
+  }
 }
 
 //true if cursor doesn't exist in the screen
