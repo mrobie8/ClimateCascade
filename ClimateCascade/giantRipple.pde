@@ -1,3 +1,9 @@
+
+int giantRippleX = 600;
+int giantRippleY = 130;
+color giantRippleColor = color(255);
+ArrayList<Circle> giantRipple;
+
 //return true if 4 or more people are within 100 px to each other 
 //if there are multiple clusters choses the largest one
 boolean clusterFormed() {
@@ -39,8 +45,9 @@ boolean clusterFormed() {
   return foundCluster;
 }
 
+//create the giant ripple
 void createGiantRipple() {
-  if (timer % 10 == 0) {
+  if (timer % 20 == 0) {
     giantRipple.add(new Circle(giantRippleX/aec.getScaleX(), giantRippleY/aec.getScaleY()));
   }
   for (int i = 0; i < giantRipple.size(); i++) {
@@ -49,6 +56,7 @@ void createGiantRipple() {
   }
 }
 
+//circle object that grows and fades that is used in giant ripple
 class Circle {
   float x, y;
   float size;

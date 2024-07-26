@@ -1,10 +1,11 @@
-//vesion #2
 
-class Ripple2 implements Ripple {
+//Ripple Object that draws and grows a ripple
+
+class Ripple {
   float cSize1, cSize2, x, y;
   int alpha;
   
-  Ripple2(int x, int y) {
+  Ripple(int x, int y) {
     this.x = x;
     this.y = y;
     cSize1 = 0;

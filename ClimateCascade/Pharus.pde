@@ -1,43 +1,22 @@
 // Version 4.1
 
-float cursor_size = 25;
-PFont font;
-int scaleFactor = 3;
-int windowWidth = 1200;   //3030/scaleFactor; // for real Deep Space this should be 3030
-int windowHeight = 400; //3712/scaleFactor; // for real Deep Space this should be 3712
-int wallHeight =  0; //1914/scaleFactor; // for real Deep Space this should be 1914 (Floor is 1798)
-
+int wallHeight =  0; 
 boolean ShowTrack = true;
 boolean ShowPath = true;
 boolean ShowFeet = true;
-
 int show = 0xffff;
+HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //trackID and seconds
+ArrayList<Integer> people;
 
-/*
-void settings()
-{
-  size(windowWidth, windowHeight); 
-  //fullScreen(P2D, SPAN);  
-}
-*/
-
-void setupPharus()
-{
+void setupPharus(){
   noStroke();
   fill(0);
-
-  font = createFont("Arial", 18);
-  textFont(font, 18);
-  textAlign(CENTER, CENTER);
-  windowWidth = width / aec.getScaleX(); 
-  windowHeight = height /2 / aec.getScaleY();
-  wallHeight = 0; //(height / 2) / aec.getScaleY();
-  initTracking(false, wallHeight); //wallHeight);
+  wallHeight = 0;
+  initTracking(false, wallHeight); 
   people = new ArrayList<>();
 }
 
 void drawPharus() {
-  
   // a person enters
   if (GetNumTracks() > people.size()) {
       for (int p = 0; p < GetNumTracks() - people.size(); p++) {
@@ -50,6 +29,7 @@ void drawPharus() {
         }
       }
     }
+    
     // a person leaves
     else if (GetNumTracks() < people.size()) {
       for (int p = 0; p < people.size() - GetNumTracks(); p++) {
@@ -63,20 +43,13 @@ void drawPharus() {
       }
     }
     
+    //add ripples at person's location
     for (int trackID=0; trackID<GetNumTracks (); trackID++) {
       if (timeToStart(trackID)) {
-        
- // ------------------------------------------------------------------------------------------
- // ------------------------------------------------------------------------------------------
-        pond.add(new Ripple2(GetX(trackID)/aec.getScaleX(), GetY(trackID)/aec.getScaleY())); 
- // ------------------------------------------------------------------------------------------
- // ------------------------------------------------------------------------------------------
-        
+        pond.add(new Ripple(GetX(trackID)/aec.getScaleX(), GetY(trackID)/aec.getScaleY())); 
       }
-      
-      
-      //fill(255);
-      //ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
+      fill(255);
+      ellipse(GetX(trackID)/ aec.getScaleX(), GetY(trackID) / aec.getScaleY(), 1 , 1);
     }
 }
 
@@ -90,6 +63,7 @@ boolean cursorIdNotInScreen(int cursor) {
   return true;
 }
 
+//true if it is time for ripple to start at the person's location based on frequency
 boolean timeToStart(int trackID) {
   if (lengthInSpace.get(GetCursorID(trackID)) %  frequency == 0) {
     return true;
@@ -98,12 +72,6 @@ boolean timeToStart(int trackID) {
     return false;
   }
 }
-
-
-
-
-
-
 
 
 void keyPressedPharus()
