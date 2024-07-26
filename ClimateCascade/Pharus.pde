@@ -5,8 +5,8 @@ boolean ShowTrack = true;
 boolean ShowPath = true;
 boolean ShowFeet = true;
 int show = 0xffff;
-HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //trackID and seconds
-ArrayList<Integer> people;
+HashMap<Integer, Integer> lengthInSpace = new HashMap<>(); //cursorID and seconds
+ArrayList<Integer> people; //list of people detected
 
 void setupPharus(){
   noStroke();
@@ -55,7 +55,7 @@ void drawPharus() {
   }
 }
 
-//true if cursor doesn't exist in the screen
+//true if cursor ID doesn't exist in the screen
 boolean cursorIdNotInScreen(int cursor) {
   for (int trackID=0; trackID<GetNumTracks (); trackID++) {
     if (GetCursorID(trackID) == cursor) {

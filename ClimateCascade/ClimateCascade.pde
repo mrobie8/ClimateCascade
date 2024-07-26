@@ -47,25 +47,27 @@ void draw() {
   
   
   //grid lines
-  stroke(0, 255, 0);
-  strokeWeight(0.15);
-  line(10, 0, 10, 30);
-  line(20, 0, 20, 30);
-  line(30, 0, 30, 30);
-  line(55, 0, 55, 30);
-  line(60, 0, 60, 30);
-  strokeWeight(1);
+  //stroke(0, 255, 0);
+  //strokeWeight(0.15);
+  //line(10, 0, 10, 30);
+  //line(20, 0, 20, 30);
+  //line(30, 0, 30, 30);
+  //line(55, 0, 55, 30);
+  //line(60, 0, 60, 30);
+  noStroke();
   fill(255);
   rect(mouseX/aec.getScaleX(),mouseY/aec.getScaleY(),1,1);
+  strokeWeight(1);
 
   aec.endDraw();
   aec.drawSides();
-  timer++;
+  timer ++;
 }
 
 
 void mouseClicked() {
-  pond.add(new Ripple(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));  
+  //add ripple on mouseclick
+  pond.add(new Ripple(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()));
   println(mouseX/aec.getScaleX(), mouseY/aec.getScaleY()); 
 }
 
