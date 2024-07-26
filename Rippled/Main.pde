@@ -18,7 +18,7 @@ void setup() {
   timer = 0;
   pond = new ArrayList();
   giantRipple = new ArrayList();
-  waterLevel = -22;
+  waterLevel = -19;
 }
 
 void draw() {
